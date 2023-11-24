@@ -1,0 +1,20 @@
+<!-- hibernate.cfg.xml -->
+<hibernate-configuration>
+    <session-factory>
+        <!-- Configuración de la conexión a la base de datos -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/argservo</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+
+        <!-- Configuración del dialecto de la base de datos -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Otras configuraciones -->
+        <property name="hibernate.hbm2ddl.auto">update</property> <!-- Actualiza automáticamente el esquema -->
+        <property name="hibernate.show_sql">true</property> <!-- Muestra las consultas SQL en la consola -->
+
+        <!-- Mapeos de clases -->
+        <!-- Aquí se añadirán los mapeos de tus entidades -->
+    </session-factory>
+</hibernate-configuration>

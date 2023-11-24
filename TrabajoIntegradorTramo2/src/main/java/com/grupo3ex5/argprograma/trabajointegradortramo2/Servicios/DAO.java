@@ -12,10 +12,12 @@ public class DAO<T> {
     private final EntityManagerFactory entityManagerFactory;
 
     /**
-     * 
-     * 
+     * Objeto de acceso a Datos generico para evitar codigo redundante usado
+     * para cliente, categoria y tecnico
+     *
      * @param clazz
-     * @param persistenceUnitName = com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU 
+     * @param persistenceUnitName =
+     * com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU
      */
     public DAO(Class<T> clazz, String persistenceUnitName) {
         this.clazz = clazz;
@@ -37,7 +39,7 @@ public class DAO<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("Error al crear entidad " + entity);
+            System.out.println("Error El registro que se desea crear ya existe ");
         } finally {
             entityManager.close();
         }

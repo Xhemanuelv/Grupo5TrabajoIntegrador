@@ -2,6 +2,7 @@ package com.grupo3ex5.argprograma.trabajointegradortramo2.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "orden")
@@ -22,9 +24,11 @@ public class Orden implements Serializable {
 
     private double costo;
 
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha_orden;
 
-    private boolean estado;
+    @Column(name = "estado_orden")
+    private String estado;
 
     @ManyToOne
     @JoinColumn(name = "cliente_dni")
@@ -41,7 +45,7 @@ public class Orden implements Serializable {
     public Orden() {
     }
 
-    public Orden(String descripcion_orden, double costo, Date fecha_orden, boolean estado, Cliente cliente, Tecnico tecnico, Categoria categoria) {
+    public Orden(String descripcion_orden, double costo, Date fecha_orden, String estado, Cliente cliente, Tecnico tecnico, Categoria categoria) {
         this.descripcion_orden = descripcion_orden;
         this.costo = costo;
         this.fecha_orden = fecha_orden;
@@ -79,11 +83,11 @@ public class Orden implements Serializable {
         this.fecha_orden = fecha_orden;
     }
 
-    public boolean isEstado() {
+    public String isEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

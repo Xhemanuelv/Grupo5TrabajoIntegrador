@@ -2,6 +2,7 @@ package com.grupo3ex5.argprograma.trabajointegradortramo2.Persistencia;
 
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Cliente;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Orden;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -52,17 +53,19 @@ public class OrdenDAO {
 
     public List<Orden> listarOrdenesEntreFechas(Date fechaInicio, Date fechaFin) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Orden> ordenes = null;
+        List<Orden> ordenes = new ArrayList<>();
 
         try {
+            /*Esto no esta funcionando
+            */
             TypedQuery<Orden> query = entityManager.createQuery(
-                    "SELECT o FROM Orden o WHERE o.fechaOrden BETWEEN :fechaInicio AND :fechaFin",
+                    "SELECT o FROM Orden o WHERE o.fecha_orden BETWEEN :fechaInicio AND :fechaFin",
                     Orden.class)
                     .setParameter("fechaInicio", fechaInicio)
                     .setParameter("fechaFin", fechaFin);
             ordenes = query.getResultList();
         } catch (Exception ex) {
-            System.out.println("Error al obtener ordenes entre" + fechaInicio + " y " + fechaFin);
+            System.out.println("Error al obtener ordenes entre " + fechaInicio + " y " + fechaFin);
         } finally {
             entityManager.close();
         }

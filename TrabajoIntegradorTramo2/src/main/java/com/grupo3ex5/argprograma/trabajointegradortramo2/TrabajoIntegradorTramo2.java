@@ -11,5 +11,6 @@ public class TrabajoIntegradorTramo2 {
     public static void main(String[] args) {
         Intermediario inter = new Intermediario();
         inter.CargaInicial();
+        inter.mostrarOrdenesEntreFechas();
     }
 }

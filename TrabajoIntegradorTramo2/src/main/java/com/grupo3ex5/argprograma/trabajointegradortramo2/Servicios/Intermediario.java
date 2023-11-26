@@ -6,6 +6,7 @@ import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Categoria;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Cliente;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Orden;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Tecnico;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -125,5 +126,42 @@ public class Intermediario {
         for (Orden orden : Ordenes) {
             System.out.println(orden);
         }
+    }
+
+    /**
+     * Muestra las ordenes registradas entre 2 fechas, hay que reemplazar los
+     * valores harcoded por pedido de ingreso de fechas a usuario
+     */
+    public void mostrarOrdenesEntreFechas() {
+        System.out.println("");
+        Date fechaInicial = new Date(123, 10, 24);
+        Date fechaLimite = new Date(123, 10, 26);
+        List<Orden> ordenesEnFecha = llamarEntreFechas(fechaInicial, fechaLimite);
+
+        if (ordenesEnFecha.isEmpty()) {
+            System.out.println("Ocurrio un error al buscar las ordenes en la fecha deseada");
+        } else {
+            System.out.println("Ordenes entre " + fechaInicial + " y " + fechaLimite);
+            for (Orden orden : ordenesEnFecha) {
+                System.out.println(orden.getCliente().getNombre() + " " + orden.getTecnico().getNombreApellido() + " " + orden.getFecha_orden() + " " + orden.getCategoria().getDescripcion_categoria());
+            }
+        }
+
+    }
+
+    /**
+     * Funciona el error estaba al formular query
+     *
+     * @param fechaInicio
+     * @param fechaFin
+     * @return
+     */
+    private List<Orden> llamarEntreFechas(Date fechaInicio, Date fechaFin) {
+        OrdenDAO ordenDAO = new OrdenDAO();
+        try {
+            return ordenDAO.listarOrdenesEntreFechas(fechaInicio, fechaFin);
+        } catch (Exception e) {
+        }
+        return new ArrayList<>();
     }
 }

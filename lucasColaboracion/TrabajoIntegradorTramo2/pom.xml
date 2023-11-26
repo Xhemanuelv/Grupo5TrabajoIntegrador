@@ -58,4 +58,5 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.grupo3ex5.argprograma.trabajointegradortramo2.TrabajoIntegradorTramo2</exec.mainClass>
     </properties>
+    <name>TrabajoIntegradorTramo2_Lucas</name>
 </project>

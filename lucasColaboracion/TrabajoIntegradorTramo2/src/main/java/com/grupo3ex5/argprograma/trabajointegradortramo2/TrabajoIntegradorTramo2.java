@@ -16,7 +16,7 @@ public class TrabajoIntegradorTramo2 {
 
     public static void main(String[] args) {
         OrdenDAO ordenDAO = new OrdenDAO();
-
+        /*
         // Crear clientes
         Cliente cliente1 = new Cliente(111111, "Cliente 1", "Dirección 1", "cliente1@mail.com");
         Cliente cliente2 = new Cliente(222222, "Cliente 2", "Dirección 2", "cliente2@mail.com");
@@ -56,6 +56,11 @@ public class TrabajoIntegradorTramo2 {
         // Guardar datos en la base de datos
         ordenDAO.crearOrden(ordenA);
         ordenDAO.crearOrden(ordenB);
-        ordenDAO.crearOrden(ordenC);
+        ordenDAO.crearOrden(ordenC);*/
+        Cliente cliente1 = new Cliente(111111, "Cliente 1", "Dirección 1", "cliente1@mail.com");
+        Tecnico tecnico1 = new Tecnico("Técnico 1");
+        Categoria categoria2 = new Categoria("Categoría 2");
+        ordenDAO.crearOrdenView(cliente1, tecnico1, categoria2);
     }
+
 }

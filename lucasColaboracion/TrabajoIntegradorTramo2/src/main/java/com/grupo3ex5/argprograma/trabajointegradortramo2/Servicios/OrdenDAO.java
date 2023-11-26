@@ -85,7 +85,7 @@ public class OrdenDAO {
             cliente = entityManager.find(Cliente.class, cliente.getDni());
             if (cliente == null) {
                 entityManager.persist(cliente);
-                JOptionPane.showMessageDialog(null, "Alta a ciente : " + cliente.getNombre());
+                JOptionPane.showMessageDialog(null, "Alta a cliente : " + cliente.getNombre());
             }
 
             // Asignar técnico y categoría sin validar

@@ -81,8 +81,9 @@ public class OrdenDAO {
             transaction.begin();
 
             // Validar cliente y dar de alta si no existe en la base de datos
-            Cliente Validarcliente = entityManager.find(Cliente.class, cliente.getDni());
-            if (Validarcliente == null) {
+            
+            cliente = entityManager.find(Cliente.class, cliente.getDni());
+            if (cliente == null) {
                 entityManager.persist(cliente);
                 JOptionPane.showMessageDialog(null, "Alta a ciente : " + cliente.getNombre());
             }

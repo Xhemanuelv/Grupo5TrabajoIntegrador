@@ -35,7 +35,7 @@ public class Tecnico implements Serializable {
         this.nombreApellido = nombreApellido;
     }
 
-    public long getId_tecnico() {
+    public int getId_tecnico() {
         return id_tecnico;
     }
 

@@ -1,4 +1,4 @@
-package com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios;
+package com.grupo3ex5.argprograma.trabajointegradortramo2.Persistencia;
 
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Cliente;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Orden;
@@ -32,7 +32,11 @@ public class OrdenDAO {
                 entityManager.persist(orden.getCliente());
             }
 
-            // Asignar técnico y categoría sin validar
+            /**
+             * Se debe verificar si existen tecnico y categoria debido a que
+             * utiliza sus id como llaves foraneas, en lugar de agregarlos a DB
+             * se informa la ausencia del mismo y se cancela
+             */
             entityManager.persist(orden);
 
             transaction.commit();

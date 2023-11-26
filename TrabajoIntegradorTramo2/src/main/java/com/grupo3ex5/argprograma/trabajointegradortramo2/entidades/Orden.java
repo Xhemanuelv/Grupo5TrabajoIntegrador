@@ -18,13 +18,17 @@ public class Orden implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_orden")
     private int id_orden;
 
+    @Column(name = "descripcion_orden")
     private String descripcion_orden;
 
+    @Column(name = "costo")
     private double costo;
 
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "fecha_orden")
     private Date fecha_orden;
 
     @Column(name = "estado_orden")
@@ -113,6 +117,11 @@ public class Orden implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Orden{" + "id_orden=" + id_orden + ", descripcion_orden=" + descripcion_orden + ", costo=" + costo + ", fecha_orden=" + fecha_orden + ", estado=" + estado + ", dni_cliente=" + cliente.getDni() + ", id_tecnico=" + tecnico.getId_tecnico() + ", id_categoria=" + categoria.getId_categoria() + '}';
     }
 
 }

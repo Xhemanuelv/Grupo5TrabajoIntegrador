@@ -39,4 +39,9 @@ public class Categoria implements Serializable {
         return id_categoria;
     }
 
+    @Override
+    public String toString() {
+        return "Categoria{" + "id_categoria=" + id_categoria + ", descripcion_categoria=" + descripcion_categoria + '}';
+    }
+
 }

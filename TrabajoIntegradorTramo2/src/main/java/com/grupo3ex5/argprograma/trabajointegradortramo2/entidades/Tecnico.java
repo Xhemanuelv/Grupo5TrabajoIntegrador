@@ -16,7 +16,7 @@ public class Tecnico implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tecnico_id")
     private int id_tecnico;
-    
+
     @Column(name = "nombre_apellido")
     private String nombreApellido;
 
@@ -37,6 +37,11 @@ public class Tecnico implements Serializable {
 
     public long getId_tecnico() {
         return id_tecnico;
+    }
+
+    @Override
+    public String toString() {
+        return "Tecnico{" + "id_tecnico=" + id_tecnico + ", nombreApellido=" + nombreApellido + '}';
     }
 
 }

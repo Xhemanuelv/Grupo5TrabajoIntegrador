@@ -1,4 +1,4 @@
-package com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios;
+package com.grupo3ex5.argprograma.trabajointegradortramo2.Persistencia;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -6,6 +6,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+/**
+ * Comunicacion entre objetos y base de datos
+ * persistenceUnitName = com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU
+ * @param <T> 
+ */
 public class DAO<T> {
 
     private final Class<T> clazz;
@@ -16,8 +21,7 @@ public class DAO<T> {
      * para cliente, categoria y tecnico
      *
      * @param clazz
-     * @param persistenceUnitName =
-     * com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU
+     * @param persistenceUnitName 
      */
     public DAO(Class<T> clazz, String persistenceUnitName) {
         this.clazz = clazz;
@@ -39,7 +43,7 @@ public class DAO<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("Error El registro que se desea crear ya existe ");
+            System.out.println("Error al registrar en la base de datos, no se harán cambios");
         } finally {
             entityManager.close();
         }

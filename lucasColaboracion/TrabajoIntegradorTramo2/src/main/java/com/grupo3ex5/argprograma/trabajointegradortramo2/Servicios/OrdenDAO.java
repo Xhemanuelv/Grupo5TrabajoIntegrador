@@ -73,15 +73,16 @@ public class OrdenDAO {
     }
 
     public void crearOrdenView(Cliente cliente, Tecnico tecnico, Categoria categoria) {
+        
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
-
+        
         try {
+            
             transaction = entityManager.getTransaction();
             transaction.begin();
 
             // Validar cliente y dar de alta si no existe en la base de datos
-            
             cliente = entityManager.find(Cliente.class, cliente.getDni());
             if (cliente == null) {
                 entityManager.persist(cliente);
@@ -96,15 +97,14 @@ public class OrdenDAO {
             Date fecha_orden = java.sql.Date.valueOf(fechaActual);
 
             //mostrar la fecha que se genera la orden
-            JOptionPane.showMessageDialog(null, "Fecha " + fechaActual, "Fecha Actual", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Fecha " + fechaActual, "Fecha de Orden", JOptionPane.INFORMATION_MESSAGE);
 
             //generamos costo aleatorio
             Random random = new Random();
             double costoAleatorio = 10000 + (50000 - 10000) * random.nextDouble();
 
             JOptionPane.showMessageDialog(null, "Costo de la Orden: $" + String.format("%.2f", costoAleatorio));
-            
-            
+
             //se crea la orden
             Orden ordenACargar = new Orden(descripcion_orden, costoAleatorio, fecha_orden, "Pendiente", cliente, tecnico, categoria);
 

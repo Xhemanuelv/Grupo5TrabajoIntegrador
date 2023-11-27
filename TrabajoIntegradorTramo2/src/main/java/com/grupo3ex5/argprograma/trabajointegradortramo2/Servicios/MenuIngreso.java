@@ -15,6 +15,7 @@ public class MenuIngreso {
     private Scanner leer = new Scanner(System.in).useDelimiter("\n");
 
     public void menu() {
+        System.out.println("hola");
         System.out.println("");
         System.out.println("nuevaorden");
         System.out.println("");

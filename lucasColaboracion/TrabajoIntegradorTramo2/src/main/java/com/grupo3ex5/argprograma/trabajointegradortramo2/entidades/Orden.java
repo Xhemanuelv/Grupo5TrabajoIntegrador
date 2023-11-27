@@ -115,4 +115,9 @@ public class Orden implements Serializable {
         this.categoria = categoria;
     }
 
+    @Override
+    public String toString() {
+        return "Orden{" + "id_orden=" + id_orden + ", descripcion_orden=" + descripcion_orden + ", costo=" + costo + ", fecha_orden=" + fecha_orden + ", estado=" + estado + ", cliente=" + cliente.getNombre() + ", tecnico=" + tecnico.getNombreApellido() + ", categoria=" + categoria.getDescripcion_categoria() + '}';
+    }
+
 }

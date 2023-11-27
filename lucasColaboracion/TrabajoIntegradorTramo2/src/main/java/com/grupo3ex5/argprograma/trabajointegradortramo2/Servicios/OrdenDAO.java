@@ -52,25 +52,26 @@ public class OrdenDAO {
         }
     }
 
-    public List<Orden> listarOrdenesEntreFechas(Date fechaInicio, Date fechaFin) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Orden> ordenes = null;
+       public List<Orden> listarOrdenesEntreFechas(Date fechaInicio, Date fechaFin) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    List<Orden> ordenes = null;
 
-        try {
-            TypedQuery<Orden> query = entityManager.createQuery(
-                    "SELECT o FROM Orden o WHERE o.fechaOrden BETWEEN :fechaInicio AND :fechaFin",
-                    Orden.class)
-                    .setParameter("fechaInicio", fechaInicio)
-                    .setParameter("fechaFin", fechaFin);
-            ordenes = query.getResultList();
-        } catch (Exception ex) {
-            System.out.println("Error al obtener ordenes entre" + fechaInicio + " y " + fechaFin);
-        } finally {
-            entityManager.close();
-        }
-
-        return ordenes;
+    try {
+        TypedQuery<Orden> query = entityManager.createQuery(
+                "SELECT o FROM Orden o WHERE o.fecha_orden BETWEEN :fechaInicio AND :fechaFin",
+                Orden.class)
+                .setParameter("fechaInicio", fechaInicio)
+                .setParameter("fechaFin", fechaFin);
+        ordenes = query.getResultList();
+    } catch (Exception ex) {
+        System.out.println("Error al obtener ordenes entre " + fechaInicio + " y " + fechaFin);
+        ex.printStackTrace(); // Imprime detalles del error para depuración
+    } finally {
+        entityManager.close();
     }
+
+    return ordenes;
+}
 
     public void crearOrdenView(Cliente cliente, Tecnico tecnico, Categoria categoria) {
         

@@ -22,6 +22,19 @@ public class Categoria implements Serializable {
 
     public Categoria() {
     }
+    
+    /**
+     * Solamente usado para poder hacer referencia a un id existente en DB
+     * reemplazar con modificacion de DAO para buscar por nombre de tecnico o
+     * categoria
+     *
+     * @param id_categoria
+     * @param descripcion_categoria
+     */
+    public Categoria(int id_categoria, String descripcion_categoria) {
+        this.id_categoria = id_categoria;
+        this.descripcion_categoria = descripcion_categoria;
+    }
 
     public Categoria(String descripcion_categoria) {
         this.descripcion_categoria = descripcion_categoria;
@@ -37,6 +50,11 @@ public class Categoria implements Serializable {
 
     public int getId_categoria() {
         return id_categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" + "id_categoria=" + id_categoria + ", descripcion_categoria=" + descripcion_categoria + '}';
     }
 
 }

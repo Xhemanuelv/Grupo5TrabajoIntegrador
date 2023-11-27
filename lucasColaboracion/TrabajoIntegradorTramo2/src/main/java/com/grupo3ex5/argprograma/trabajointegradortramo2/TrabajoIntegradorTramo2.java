@@ -1,6 +1,7 @@
 package com.grupo3ex5.argprograma.trabajointegradortramo2;
 
 import com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios.DAO;
+import com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios.ManipularBD;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios.OrdenDAO;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Categoria;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Cliente;
@@ -57,10 +58,21 @@ public class TrabajoIntegradorTramo2 {
         ordenDAO.crearOrden(ordenA);
         ordenDAO.crearOrden(ordenB);
         ordenDAO.crearOrden(ordenC);*/
-        Cliente cliente1 = new Cliente(111111, "Cliente 1", "Dirección 1", "cliente1@mail.com");
+       
+        /*Cliente cliente1 = new Cliente(111111, "Cliente 1", "Dirección 1", "cliente1@mail.com");
         Tecnico tecnico1 = new Tecnico("Técnico 1");
         Categoria categoria2 = new Categoria("Categoría 2");
         ordenDAO.crearOrdenView(cliente1, tecnico1, categoria2);
+       */
+          
+        ManipularBD modTablas = new ManipularBD();
+
+        modTablas.mostrarTablas();
+
+        modTablas.CargaInicial();
+        
+        modTablas.mostrarTablas();
+    
     }
 
 }

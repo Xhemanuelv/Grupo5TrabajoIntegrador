@@ -16,11 +16,24 @@ public class Tecnico implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tecnico_id")
     private int id_tecnico;
-    
+
     @Column(name = "nombre_apellido")
     private String nombreApellido;
 
     public Tecnico() {
+    }
+
+    /**
+     * Solamente usado para poder hacer referencia a un id existente en DB
+     * reemplazar con modificacion de DAO para buscar por nombre de tecnico o
+     * categoria
+     *
+     * @param id_tecnico
+     * @param nombreApellido
+     */
+    public Tecnico(int id_tecnico, String nombreApellido) {
+        this.id_tecnico = id_tecnico;
+        this.nombreApellido = nombreApellido;
     }
 
     public Tecnico(String nombreApellido) {

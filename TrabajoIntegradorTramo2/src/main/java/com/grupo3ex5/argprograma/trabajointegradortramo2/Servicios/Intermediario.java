@@ -16,6 +16,9 @@ public class Intermediario {
      * Verifica si las tablas existen o estan vacias, de ser asi añade algunos
      * valores
      */
+    /**
+     * Quitarle la logica de nueva orden para que salga desde menu ingreso
+     */
     public void CargaInicial() {
 
         OrdenDAO ordenDAO = new OrdenDAO();
@@ -27,6 +30,7 @@ public class Intermediario {
         // Crear clientes
         Cliente cliente1 = new Cliente(111111, "Cliente 1", "Dirección 1", "cliente1@mail.com");
         Cliente cliente2 = new Cliente(222222, "Cliente 2", "Dirección 2", "cliente2@mail.com");
+        Cliente nuevoCliente = new Cliente(225456789, "Marco", "direccion Marco", "marco@mail.com");
 
         // Crear técnicos
         Tecnico tecnico1 = new Tecnico("Técnico 1");
@@ -48,11 +52,6 @@ public class Intermediario {
             //Guardar clientes
             clienteDao.crear(cliente1);
             clienteDao.crear(cliente2);
-        } else {
-            System.out.println("Clientes:");
-            for (Cliente cliente : clientes) {
-                System.out.println(cliente);
-            }
         }
 
         List<Tecnico> tecnicos = tecnicoDAO.obtenerTodos();
@@ -61,11 +60,6 @@ public class Intermediario {
             tecnicoDAO.crear(tecnico1);
             tecnicoDAO.crear(tecnico2);
             tecnicoDAO.crear(tecnico3);
-        } else {
-            System.out.println("\nTecnicos:");
-            for (Tecnico tecnico : tecnicos) {
-                System.out.println(tecnico);
-            }
         }
 
         List<Categoria> categorias = categoriaDAO.obtenerTodos();
@@ -74,11 +68,6 @@ public class Intermediario {
             categoriaDAO.crear(categoria1);
             categoriaDAO.crear(categoria2);
             categoriaDAO.crear(categoria3);
-        } else {
-            System.out.println("\nCategorias:");
-            for (Categoria categoria : categorias) {
-                System.out.println(categoria);
-            }
         }
 
         List<Orden> ordenes = ordenGenDAO.obtenerTodos();
@@ -87,12 +76,12 @@ public class Intermediario {
             ordenDAO.crearOrden(ordenA);
             ordenDAO.crearOrden(ordenB);
             ordenDAO.crearOrden(ordenC);
-        } else {
-            System.out.println("\nOrdenes:");
-            for (Orden orden : ordenes) {
-                System.out.println(orden);
-            }
         }
+        Categoria jopCat = new Categoria(2, "Categoría 2");
+        Tecnico jopTec = new Tecnico(1, "Técnico 1");
+        Orden ordend = new Orden("Descripcion orden d", 250.0, new Date(), "pendiente", nuevoCliente, jopTec, jopCat);
+
+        ordenDAO.crearOrden(ordend);
 
     }
 
@@ -163,5 +152,10 @@ public class Intermediario {
         } catch (Exception e) {
         }
         return new ArrayList<>();
+    }
+
+    public void nuevaOrdenClienteNuevo(Orden orden) {
+        OrdenDAO ordDAO = new OrdenDAO();
+        ordDAO.crearOrden(orden);
     }
 }

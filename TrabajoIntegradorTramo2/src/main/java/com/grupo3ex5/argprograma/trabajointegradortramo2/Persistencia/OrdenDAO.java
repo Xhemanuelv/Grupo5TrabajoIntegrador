@@ -28,10 +28,20 @@ public class OrdenDAO {
             transaction.begin();
 
             // Validar cliente y dar de alta si no existe
-            Cliente cliente = entityManager.find(Cliente.class, orden.getCliente().getDni());
-            if (cliente == null) {
+            //Cliente cliente = entityManager.find(Cliente.class, orden.getCliente().getDni());
+            DAO<Cliente> clienteDao = new DAO(Cliente.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
+            List<Cliente> clientes = clienteDao.obtenerTodos();
+            boolean clientePersistir = clientes.contains(orden.getCliente());
+            boolean clienteExiste = entityManager.contains(orden.getCliente());
+            if (clientePersistir) {
+                System.out.println("Nueva orden para " + orden.getCliente().getNombre());
+            } else {
                 entityManager.persist(orden.getCliente());
             }
+            //System.out.println(cliente);
+//            if (cliente == null) {
+//                entityManager.persist(orden.getCliente());
+//            }
 
             /**
              * Se debe verificar si existen tecnico y categoria debido a que
@@ -56,8 +66,8 @@ public class OrdenDAO {
         List<Orden> ordenes = new ArrayList<>();
 
         try {
-            /*Esto no esta funcionando
-            */
+            /*Esto esta funcionando
+             */
             TypedQuery<Orden> query = entityManager.createQuery(
                     "SELECT o FROM Orden o WHERE o.fecha_orden BETWEEN :fechaInicio AND :fechaFin",
                     Orden.class)

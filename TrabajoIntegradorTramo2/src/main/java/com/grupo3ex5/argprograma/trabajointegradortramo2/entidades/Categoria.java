@@ -23,6 +23,11 @@ public class Categoria implements Serializable {
     public Categoria() {
     }
 
+    public Categoria(int id_categoria, String descripcion_categoria) {
+        this.id_categoria = id_categoria;
+        this.descripcion_categoria = descripcion_categoria;
+    }
+
     public Categoria(String descripcion_categoria) {
         this.descripcion_categoria = descripcion_categoria;
     }
@@ -38,6 +43,29 @@ public class Categoria implements Serializable {
     public int getId_categoria() {
         return id_categoria;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + this.id_categoria;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Categoria other = (Categoria) obj;
+        return this.id_categoria == other.id_categoria;
+    }
+    
 
     @Override
     public String toString() {

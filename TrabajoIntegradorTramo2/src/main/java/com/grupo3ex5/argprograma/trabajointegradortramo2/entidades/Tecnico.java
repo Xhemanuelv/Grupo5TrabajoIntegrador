@@ -23,6 +23,11 @@ public class Tecnico implements Serializable {
     public Tecnico() {
     }
 
+    public Tecnico(int id_tecnico, String nombreApellido) {
+        this.id_tecnico = id_tecnico;
+        this.nombreApellido = nombreApellido;
+    }
+
     public Tecnico(String nombreApellido) {
         this.nombreApellido = nombreApellido;
     }
@@ -37,6 +42,28 @@ public class Tecnico implements Serializable {
 
     public long getId_tecnico() {
         return id_tecnico;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + this.id_tecnico;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tecnico other = (Tecnico) obj;
+        return this.id_tecnico == other.id_tecnico;
     }
 
     @Override

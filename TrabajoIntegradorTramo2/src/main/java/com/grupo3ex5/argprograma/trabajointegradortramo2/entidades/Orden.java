@@ -35,15 +35,15 @@ public class Orden implements Serializable {
     private String estado;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_dni")
+    @JoinColumn(name = "cliente_dni", nullable = false)
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "tecnico_id")
+    @JoinColumn(name = "tecnico_id", nullable = false)
     private Tecnico tecnico;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
     public Orden() {

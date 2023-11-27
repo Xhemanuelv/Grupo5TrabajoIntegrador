@@ -1,6 +1,7 @@
 package com.grupo3ex5.argprograma.trabajointegradortramo2;
 
 import com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios.Intermediario;
+import com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios.MenuIngreso;
 
 /**
  *
@@ -12,5 +13,7 @@ public class TrabajoIntegradorTramo2 {
         Intermediario inter = new Intermediario();
         inter.CargaInicial();
         inter.mostrarOrdenesEntreFechas();
+//        MenuIngreso mn=new MenuIngreso();
+//        mn.ingresarOrden();
     }
 }

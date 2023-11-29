@@ -26,7 +26,12 @@ public class MenuIngreso {
         Intermediario inter = new Intermediario();
         inter.nuevaOrdenClienteNuevo(ingresoDatoOrden());
     }
+    
+    public void mostrarOrdenesFechas(){
+        
+    }
 
+    /*Reemplazado por clase separada*/
     private Orden ingresoDatoOrden() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
         DAO<Categoria> categoriaDAO = new DAO<>(Categoria.class);

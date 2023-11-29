@@ -12,7 +12,7 @@ public class TrabajoIntegradorTramo2 {
 
     public static void main(String[] args) {
         Intermediario inter = new Intermediario();
-        inter.mostrarOrdenesEntreFechas();
+        //inter.mostrarOrdenesEntreFechas();
 
 //        inter.CargaInicial();
 //        MenuIngreso mn=new MenuIngreso();

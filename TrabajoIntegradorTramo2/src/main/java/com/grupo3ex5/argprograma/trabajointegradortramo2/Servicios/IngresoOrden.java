@@ -16,7 +16,7 @@ public class IngresoOrden {
     private Intermediario intmdr = new Intermediario();
 
     public void ingresarNuevaOrden() {
-        JOptionPane.showMessageDialog(null, "Registrando nueva orden:\n~~~~~~~~~~~~~~~~~~~~~~~~");
+        JOptionPane.showMessageDialog(null, "Registrando nueva orden:");
 
         String descrOrden = descripcionOrden();
         double costOrd = costoOrden();
@@ -25,7 +25,7 @@ public class IngresoOrden {
         Categoria catOrd = ingresarCategoria();
         Tecnico tecOrd = ingresarTecnico();
 
-        JOptionPane.showMessageDialog(null, "~~~~~~~~~~~~~~~~~~~~~~~~");
+        JOptionPane.showMessageDialog(null, "Orden registrada exitosamente");
 
         Orden ordenNueva = new Orden(descrOrden, costOrd, fecha, "pendiente", clientOrd, tecOrd, catOrd);
         intmdr.ingresarNuevaOrden(ordenNueva);

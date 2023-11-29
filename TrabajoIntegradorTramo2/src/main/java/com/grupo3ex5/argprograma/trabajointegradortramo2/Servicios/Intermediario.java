@@ -6,9 +6,12 @@ import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Categoria;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Cliente;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Orden;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Tecnico;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Intermediario {
 
@@ -103,8 +106,13 @@ public class Intermediario {
      */
     public void mostrarOrdenesEntreFechas() {
         System.out.println("");
-        Date fechaInicial = new Date(123, 10, 24);
-        Date fechaLimite = new Date(123, 10, 26);
+        
+        JOptionPane.showMessageDialog(null, "Buscar ordenes desde:");
+        Date fechaInicial = obtenerFecha();
+        
+        JOptionPane.showMessageDialog(null, "Buscar ordenes hasta:");
+        Date fechaLimite = obtenerFecha();
+        
         List<Orden> ordenesEnFecha = llamarEntreFechas(fechaInicial, fechaLimite);
 
         if (ordenesEnFecha.isEmpty()) {
@@ -212,6 +220,25 @@ public class Intermediario {
 
     public Tecnico buscarTecPorId(int id_tec) {
         return tecnicoDAO.buscarPorId(id_tec);
+    }
+
+    private Date obtenerFecha() {
+        Date fecha = null;
+        boolean fechaValida = false;
+
+        while (!fechaValida) {
+            String fechaString = JOptionPane.showInputDialog(null, "Ingrese la fecha (dd/MM/yyyy) :");
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                sdf.setLenient(false);
+
+                fecha = sdf.parse(fechaString);
+                fechaValida = true; // Si se parsea correctamente, se marca como fecha válida
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato o fecha inválida. Intente de nuevo (Formato: dd/MM/yyyy)");
+            }
+        }
+        return fecha;
     }
 
 }

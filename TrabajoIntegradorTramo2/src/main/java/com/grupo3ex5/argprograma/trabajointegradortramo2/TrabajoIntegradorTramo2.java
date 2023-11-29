@@ -11,10 +11,11 @@ import com.grupo3ex5.argprograma.trabajointegradortramo2.Servicios.MenuIngreso;
 public class TrabajoIntegradorTramo2 {
 
     public static void main(String[] args) {
-//        Intermediario inter = new Intermediario();
+        Intermediario inter = new Intermediario();
+        inter.mostrarOrdenesEntreFechas();
+
 //        inter.CargaInicial();
-//        inter.mostrarOrdenesEntreFechas();
-////        MenuIngreso mn=new MenuIngreso();
+//        MenuIngreso mn=new MenuIngreso();
 //        mn.ingresarOrden();
         IngresoOrden ingresarOrden = new IngresoOrden();
         ingresarOrden.ingresarNuevaOrden();

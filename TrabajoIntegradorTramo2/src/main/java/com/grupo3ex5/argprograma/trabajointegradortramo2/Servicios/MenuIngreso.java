@@ -26,10 +26,15 @@ public class MenuIngreso {
         Intermediario inter = new Intermediario();
         inter.nuevaOrdenClienteNuevo(ingresoDatoOrden());
     }
+    
+    public void mostrarOrdenesFechas(){
+        
+    }
 
+    /*Reemplazado por clase separada*/
     private Orden ingresoDatoOrden() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
-        DAO<Categoria> categoriaDAO = new DAO<>(Categoria.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
+        DAO<Categoria> categoriaDAO = new DAO<>(Categoria.class);
         Date fecha = new Date();
         String descr = leer.nextLine();
         double costo = leer.nextDouble();
@@ -56,7 +61,7 @@ public class MenuIngreso {
         Tecnico jopTec = new Tecnico(1, "Técnico 1");
         //Categoria catEx = categoriaDAO.obtenerTodos().equals(tec);
         // LocalDate date = LocalDate.parse(userInput, dateFormat);
-        
+
         //Cliente nuevo
         System.out.println("Ingrese los datos del cliente ");
         System.out.println("Ingrese DNI");

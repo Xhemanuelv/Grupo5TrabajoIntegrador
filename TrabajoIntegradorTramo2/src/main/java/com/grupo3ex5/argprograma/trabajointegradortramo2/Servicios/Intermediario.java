@@ -6,11 +6,20 @@ import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Categoria;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Cliente;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Orden;
 import com.grupo3ex5.argprograma.trabajointegradortramo2.entidades.Tecnico;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Intermediario {
+
+    private OrdenDAO ordenDAO = new OrdenDAO();
+    private DAO<Cliente> clienteDao = new DAO<>(Cliente.class);
+    private DAO<Tecnico> tecnicoDAO = new DAO<>(Tecnico.class);
+    private DAO<Categoria> categoriaDAO = new DAO<>(Categoria.class);
+    private DAO<Orden> ordenGenDAO = new DAO<>(Orden.class);
 
     /**
      * Verifica si las tablas existen o estan vacias, de ser asi añade algunos
@@ -21,16 +30,11 @@ public class Intermediario {
      */
     public void CargaInicial() {
 
-        OrdenDAO ordenDAO = new OrdenDAO();
-        DAO<Cliente> clienteDao = new DAO<>(Cliente.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-        DAO<Tecnico> tecnicoDAO = new DAO<>(Tecnico.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-        DAO<Categoria> categoriaDAO = new DAO<>(Categoria.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-        DAO<Orden> ordenGenDAO = new DAO<>(Orden.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
+        OrdenDAO daOrder = new OrdenDAO();
 
         // Crear clientes
         Cliente cliente1 = new Cliente(111111, "Cliente 1", "Dirección 1", "cliente1@mail.com");
         Cliente cliente2 = new Cliente(222222, "Cliente 2", "Dirección 2", "cliente2@mail.com");
-        Cliente nuevoCliente = new Cliente(225456789, "Marco", "direccion Marco", "marco@mail.com");
 
         // Crear técnicos
         Tecnico tecnico1 = new Tecnico("Técnico 1");
@@ -73,15 +77,17 @@ public class Intermediario {
         List<Orden> ordenes = ordenGenDAO.obtenerTodos();
         if (ordenes.isEmpty()) {
             // Guardar ordenes
-            ordenDAO.crearOrden(ordenA);
-            ordenDAO.crearOrden(ordenB);
-            ordenDAO.crearOrden(ordenC);
+            daOrder.crearOrden(ordenA);
+            daOrder.crearOrden(ordenB);
+            daOrder.crearOrden(ordenC);
         }
-        Categoria jopCat = new Categoria(2, "Categoría 2");
-        Tecnico jopTec = new Tecnico(1, "Técnico 1");
-        Orden ordend = new Orden("Descripcion orden d", 250.0, new Date(), "pendiente", nuevoCliente, jopTec, jopCat);
-
-        ordenDAO.crearOrden(ordend);
+        /**
+         * Limpiar listas para ahorrar memoria
+         */
+        ordenes = null;
+        categorias = null;
+        tecnicos = null;
+        clientes = null;
 
     }
 
@@ -89,42 +95,24 @@ public class Intermediario {
      * Muestra todos los datos guardados en BD
      */
     public void mostrarTablas() {
-        DAO<Cliente> clienteDAO = new DAO<>(Cliente.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-        DAO<Tecnico> tecnicoDAO = new DAO<>(Tecnico.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-        DAO<Categoria> categoriaDAO = new DAO<>(Categoria.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-        DAO<Orden> genOrdDao = new DAO<>(Orden.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
-
-        List<Cliente> clientes = clienteDAO.obtenerTodos();
-        List<Tecnico> tecnicos = tecnicoDAO.obtenerTodos();
-        List<Categoria> categorias = categoriaDAO.obtenerTodos();
-        List<Orden> Ordenes = genOrdDao.obtenerTodos();
-
-        System.out.println("Clientes:");
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
-        }
-        System.out.println("\nTécnicos:");
-        for (Tecnico tecnico : tecnicos) {
-            System.out.println(tecnico);
-        }
-        System.out.println("\nCategorías:");
-        for (Categoria categoria : categorias) {
-            System.out.println(categoria);
-        }
-        System.out.println("\nOrdenes:");
-        for (Orden orden : Ordenes) {
-            System.out.println(orden);
-        }
+        mostrarClient();
+        mostrarCat();
+        mostrarTec();
+        mostrarOrd();
     }
 
     /**
-     * Muestra las ordenes registradas entre 2 fechas, hay que reemplazar los
-     * valores harcoded por pedido de ingreso de fechas a usuario
+     * Muestra las ordenes registradas entre 2 fechas de muestra
      */
     public void mostrarOrdenesEntreFechas() {
         System.out.println("");
-        Date fechaInicial = new Date(123, 10, 24);
-        Date fechaLimite = new Date(123, 10, 26);
+        
+        JOptionPane.showMessageDialog(null, "Buscar ordenes desde:");
+        Date fechaInicial = obtenerFecha();
+        
+        JOptionPane.showMessageDialog(null, "Buscar ordenes hasta:");
+        Date fechaLimite = obtenerFecha();
+        
         List<Orden> ordenesEnFecha = llamarEntreFechas(fechaInicial, fechaLimite);
 
         if (ordenesEnFecha.isEmpty()) {
@@ -135,21 +123,43 @@ public class Intermediario {
                 System.out.println(orden.getCliente().getNombre() + " " + orden.getTecnico().getNombreApellido() + " " + orden.getFecha_orden() + " " + orden.getCategoria().getDescripcion_categoria());
             }
         }
+        ordenesEnFecha = null;
+    }
+
+    /**
+     * Mismo metodo mostrar entre fechas pero este recibe atributos
+     *
+     * @param fechaInicial
+     * @param fechaReciente
+     */
+    public void mostrarOrdenesEntreFechas(Date fechaInicial, Date fechaReciente) {
+        System.out.println("");
+        List<Orden> ordenesEnFecha = llamarEntreFechas(fechaInicial, fechaReciente);
+
+        if (ordenesEnFecha.isEmpty()) {
+            System.out.println("Ocurrio un error al buscar las ordenes en la fecha deseada");
+        } else {
+            System.out.println("Ordenes entre " + fechaInicial + " y " + fechaReciente);
+            for (Orden orden : ordenesEnFecha) {
+                System.out.println(orden.getCliente().getNombre() + " " + orden.getTecnico().getNombreApellido() + " " + orden.getFecha_orden() + " " + orden.getCategoria().getDescripcion_categoria());
+            }
+        }
+        ordenesEnFecha = null;
 
     }
 
     /**
-     * Funciona el error estaba al formular query
+     * Crea una lista de ordenes entre las fechas introducidas
      *
      * @param fechaInicio
      * @param fechaFin
      * @return
      */
     private List<Orden> llamarEntreFechas(Date fechaInicio, Date fechaFin) {
-        OrdenDAO ordenDAO = new OrdenDAO();
         try {
             return ordenDAO.listarOrdenesEntreFechas(fechaInicio, fechaFin);
         } catch (Exception e) {
+            System.out.println("");
         }
         return new ArrayList<>();
     }
@@ -158,4 +168,77 @@ public class Intermediario {
         OrdenDAO ordDAO = new OrdenDAO();
         ordDAO.crearOrden(orden);
     }
+
+    public void ingresarNuevaOrden(Orden orden) {
+        ordenDAO.crearOrden(orden);
+    }
+
+    public void mostrarCat() {
+        List<Categoria> categorias = categoriaDAO.obtenerTodos();
+        System.out.println("\nCategorías:");
+        for (Categoria categoria : categorias) {
+            System.out.println(categoria);
+        }
+        categorias = null;
+
+    }
+
+    public void mostrarTec() {
+        List<Tecnico> tecnicos = tecnicoDAO.obtenerTodos();
+        System.out.println("\nTécnicos:");
+        for (Tecnico tecnico : tecnicos) {
+            System.out.println(tecnico);
+        }
+        tecnicos = null;
+
+    }
+
+    public void mostrarOrd() {
+        DAO<Orden> genOrdDao = new DAO<>(Orden.class);
+        List<Orden> ordenes = genOrdDao.obtenerTodos();
+        System.out.println("\nOrdenes:");
+        for (Orden orden : ordenes) {
+            System.out.println(orden);
+        }
+        ordenes = null;
+
+    }
+
+    public void mostrarClient() {
+        List<Cliente> clientes = clienteDao.obtenerTodos();
+        System.out.println("\nClientes:");
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente);
+        }
+        clientes = null;
+
+    }
+
+    public Categoria buscarCatPorId(int id_cat) {
+        return categoriaDAO.buscarPorId(id_cat);
+    }
+
+    public Tecnico buscarTecPorId(int id_tec) {
+        return tecnicoDAO.buscarPorId(id_tec);
+    }
+
+    private Date obtenerFecha() {
+        Date fecha = null;
+        boolean fechaValida = false;
+
+        while (!fechaValida) {
+            String fechaString = JOptionPane.showInputDialog(null, "Ingrese la fecha (dd/MM/yyyy) :");
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                sdf.setLenient(false);
+
+                fecha = sdf.parse(fechaString);
+                fechaValida = true; // Si se parsea correctamente, se marca como fecha válida
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato o fecha inválida. Intente de nuevo (Formato: dd/MM/yyyy)");
+            }
+        }
+        return fecha;
+    }
+
 }

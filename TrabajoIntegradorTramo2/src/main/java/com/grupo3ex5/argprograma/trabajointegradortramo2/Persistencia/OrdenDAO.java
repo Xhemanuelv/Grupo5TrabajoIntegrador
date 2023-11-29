@@ -29,7 +29,7 @@ public class OrdenDAO {
 
             // Validar cliente y dar de alta si no existe
             //Cliente cliente = entityManager.find(Cliente.class, orden.getCliente().getDni());
-            DAO<Cliente> clienteDao = new DAO(Cliente.class, "com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
+            DAO<Cliente> clienteDao = new DAO(Cliente.class);
             List<Cliente> clientes = clienteDao.obtenerTodos();
             boolean clientePersistir = clientes.contains(orden.getCliente());
             boolean clienteExiste = entityManager.contains(orden.getCliente());

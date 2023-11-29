@@ -7,25 +7,27 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 /**
- * Comunicacion entre objetos y base de datos
- * persistenceUnitName = com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU
- * @param <T> 
+ * Comunicacion entre objetos y base de datos persistenceUnitName =
+ * com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU
+ *
+ * @param <T>
  */
 public class DAO<T> {
 
     private final Class<T> clazz;
     private final EntityManagerFactory entityManagerFactory;
+    private final EntityManager entMngr;
 
     /**
      * Objeto de acceso a Datos generico para evitar codigo redundante usado
      * para cliente, categoria y tecnico
      *
      * @param clazz
-     * @param persistenceUnitName 
      */
-    public DAO(Class<T> clazz, String persistenceUnitName) {
+    public DAO(Class<T> clazz) {
         this.clazz = clazz;
-        this.entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName);
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("com.grupo3ex5.argprograma_TrabajoIntegradorTramo2_jar_1.0-SNAPSHOTPU");
+        this.entMngr = entityManagerFactory.createEntityManager();
     }
 
     public void crear(T entity) {
@@ -62,5 +64,14 @@ public class DAO<T> {
         }
 
         return entities;
+    }
+
+    public T buscarPorId(int id) {
+        return entMngr.find(clazz, id);
+    }
+
+    public void finalizarConeccion() {
+        entMngr.close();
+        entityManagerFactory.close();
     }
 }
